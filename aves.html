@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aves - Fluffify</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="midia/favicon.ico">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+    <style>
+        :root {
+            --primary-color: #618b76;
+            --bg-color: #f4f8f5;
+            --nav-bg: #dceada;
+            --border-color: #c7dec4;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="header-brand-link">
+                <h1><i class="fa-solid fa-paw"></i> Fluffify</h1>
+            </a>
+            <div class="user-actions">
+                <a href="carrinho.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge">0</span>
+                </a>
+                <a href="login.html"><i class="fa-solid fa-user"></i> Entrar</a>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="caes.html"><i class="fa-solid fa-dog"></i> Cães</a>
+            <a href="gatos.html"><i class="fa-solid fa-cat"></i> Gatos</a>
+            <a href="aves.html" class="active"><i class="fa-solid fa-dove"></i> Aves</a>
+            <a href="roedores.html"><i class="fa-solid fa-otter"></i> Roedores</a>
+            <a href="contato.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a>
+        </nav>
+    </header>
+
+    <main>
+        <img src="midia/banner pag/aves.jpeg" alt="Banner Aves" class="category-banner">
+
+        <section class="produtos">
+            <h2>Aves Disponíveis</h2>
+            <div class="grid-produtos">
+                <div class="card">
+                    <img src="midia/aves/pato.jpg" alt="Patinho Mandarim" onclick="window.location.href='animais/ave-pato-mandarim.html'">
+                    <h3>Patinho Mandarim</h3>
+                    <p class="detalhes-filhote">1 mês • Muito dócil</p>
+                    <p class="preco">R$ 750,00</p>
+                    <div class="card-actions">
+                        <a href="animais/ave-pato-mandarim.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('ave-pato', 'Patinho Mandarim', 750, 'midia/aves/pato.jpg')" class="btn">Comprar</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="midia/aves/pinguin.jpg" alt="Pinguim Mansinho Pipoca" onclick="window.location.href='animais/ave-pinguim-pipoca.html'">
+                    <h3>Pinguim Mansinho Pipoca</h3>
+                    <p class="detalhes-filhote">3 meses • Anilhado</p>
+                    <p class="preco">R$ 4.500,00</p>
+                    <div class="card-actions">
+                        <a href="animais/ave-pinguim-pipoca.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('ave-pinguim', 'Pinguim Pipoca', 4500, 'midia/aves/pinguim.jpeg')" class="btn">Comprar</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="midia/aves/Shima Enaga ou bolinha de neve.jpg" alt="Shima Enaga SnowFlakes" onclick="window.location.href='animais/ave-shima-enaga.html'">
+                    <h3>Shima Enaga SnowFlakes</h3>
+                    <p class="detalhes-filhote">2 meses • Raridade</p>
+                    <p class="preco">R$ 2.100,00</p>
+                    <div class="card-actions">
+                        <a href="animais/ave-shima-enaga.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('ave-shima', 'Shima Enaga SnowFlakes', 2100, 'midia/aves/passaro.jpeg')" class="btn">Comprar</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="midia/aves/cisneijpg.jpg" alt="Cisne Fofinho" onclick="window.location.href='animais/ave-cisne.html'">
+                    <h3>Cisne Fofinho</h3>
+                    <p class="detalhes-filhote">2 meses • Gracioso</p>
+                    <p class="preco">R$ 3.000,00</p>
+                    <div class="card-actions">
+                        <a href="animais/ave-cisne.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('ave-cisne', 'Cisne Fofinho', 3000, 'midia/aves/cisne.jpeg')" class="btn">Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4><i class="fa-solid fa-paw"></i> Fluffify</h4>
+                <p>Especialistas em acolhimento e adoção responsável de filhotes para todo o país.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="caes.html">Cães</a>
+                <a href="gatos.html">Gatos</a>
+                <a href="aves.html">Aves</a>
+                <a href="roedores.html">Roedores</a>
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-brands fa-instagram"></i> Instagram: @fluffify</p>
+                <p><i class="fa-brands fa-whatsapp"></i> WhatsApp: (11) 99999-9999</p>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Fluffify - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="carrossel.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="patinhas.js" defer></script>
+</body>
+</html>

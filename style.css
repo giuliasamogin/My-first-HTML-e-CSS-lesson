@@ -1,0 +1,2047 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS
+   ========================================================================== */
+/* Esse bloco define "regras base" que valem pro site inteiro, antes de
+   começar a estilizar cada parte específica. */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* O seletor "*" (asterisco) significa "TODOS os elementos da página".
+   margin/padding: 0 zera os espaçamentos padrão que cada navegador já
+   aplica sozinho em títulos, parágrafos etc. (senão cada navegador
+   mostraria o site com espaçamentos ligeiramente diferentes).
+   box-sizing: border-box muda a forma como o navegador calcula o
+   tamanho de um elemento: com isso, quando você define, por exemplo,
+   "width: 100px", o padding e a borda ficam DENTRO desses 100px, em vez
+   de serem somados por fora — isso evita muita dor de cabeça com
+   elementos "estourando" o tamanho esperado. */
+
+:root {
+    --primary-color: #d47a94;
+    --primary-hover: #b85e77;
+    --bg-color: #fcf6f7;
+    --card-bg: #ffffff;
+    --text-main: #3d3235;
+    --text-muted: #78686d;
+    --nav-bg: #f5e1e6;
+    --border-color: #f0d5db;
+}
+/* :root é tipo o "topo" do documento. Aqui é onde se declaram "variáveis
+   CSS" (nomes que começam com --). Em vez de escrever a cor rosa
+   "#d47a94" toda vez em várias partes do arquivo, cria-se uma variável
+   --primary-color UMA vez aqui, e usa-se var(--primary-color) no resto
+   do CSS. Vantagem: se um dia quiser trocar a cor principal do site,
+   muda só aqui em cima, e todo o site atualiza sozinho. */
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.6;
+}
+/* font-family com várias fontes separadas por vírgula é uma "lista de
+   preferência": o navegador tenta usar 'Inter' primeiro; se não tiver
+   disponível, tenta a próxima da lista, e assim por diante.
+   var(--bg-color) e var(--text-main): aqui já usamos as variáveis
+   declaradas lá em cima, em vez de repetir o código da cor.
+   line-height: 1.6 controla o espaço entre linhas de texto (deixa a
+   leitura mais confortável, tipo um espaçamento "1,6 linhas"). */
+
+/* ==========================================================================
+   2. SISTEMA DE BOTÕES (EFEITOS DE HOVER & ESTILOS)
+   ========================================================================== */
+/* Esse bloco define a aparência de todos os botões do site (comprar,
+   entrar, enviar, etc.) e o que acontece quando o mouse passa por cima
+   deles. Como o site tem vários botões parecidos, a ideia é criar uma
+   classe .btn "genérica" e reaproveitar ela em cada botão do HTML. */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: 2px solid var(--primary-color);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(212, 122, 148, 0.2);
+}
+/* display: inline-flex faz o botão se comportar como uma "caixa flexível"
+   (flexbox) — isso permite usar align-items/justify-content pra
+   centralizar o conteúdo dele (texto + ícone) tanto na vertical quanto
+   na horizontal, e "gap" cria um espacinho entre o ícone e o texto.
+   border-radius arredonda as bordas.
+   cursor: pointer troca o "cursor do mouse" pra uma mãozinha, indicando
+   que aquilo é clicável.
+   transition: all 0.25s ease é o que faz as mudanças (cor de fundo,
+   posição, sombra) acontecerem suavemente ao longo de 0,25 segundos, em
+   vez de trocar de estado bruscamente — é essa propriedade que "anima"
+   os hovers do site inteiro.
+   box-shadow cria uma sombra: os 3 primeiros números são deslocamento
+   horizontal, vertical e o "borrão" da sombra; rgba(...) é a cor da
+   sombra com transparência (o último número, entre 0 e 1). */
+
+/* Hover nos Botões Principais (Rosas) */
+.btn:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(184, 94, 119, 0.35);
+}
+/* :hover é uma "pseudo-classe": um estado especial que só se aplica
+   enquanto o mouse está em cima do elemento. Aqui, ao passar o mouse, o
+   botão escurece um pouco e "sobe" 2 pixels (translateY(-2px) move o
+   elemento pra cima no eixo vertical), dando a sensação de que ele
+   "flutuou" — combinado com a transition acima, isso fica suave. */
+
+.btn:active {
+    transform: translateY(0);
+}
+/* :active é outra pseudo-classe: o instante em que o botão está sendo
+   clicado/pressionado. Aqui ele volta pra posição original, simulando o
+   botão "afundando" quando clicado. */
+
+/* Botão Secundário (Ex: Saiba Mais) */
+.btn-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    box-shadow: none;
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212, 122, 148, 0.25);
+}
+/* .btn-secondary é uma variação: no HTML, o botão recebe as duas
+   classes juntas (class="btn btn-secondary"), então herda tudo de .btn
+   e só troca o que está escrito aqui (fundo transparente em vez de
+   rosa). É assim que se reaproveita estilo sem duplicar tudo de novo. */
+
+/* Botões de Bloco (Largura total) */
+.btn-block {
+    width: 100%;
+}
+/* Outra variação simples: quando um botão também tem essa classe, ele
+   ocupa 100% da largura disponível (útil pra botões de formulário). */
+
+/* ==========================================================================
+   3. CABEÇALHO E NAVEGAÇÃO
+   ========================================================================== */
+/* Esse bloco estiliza o header e o menu (nav), que aparecem iguais em
+   todas as páginas do site. */
+
+header {
+    background-color: var(--nav-bg);
+    color: var(--text-main);
+    padding: 20px 40px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* padding: 20px 40px = dois valores: o primeiro (20px) é o espaçamento
+   interno em cima/embaixo, o segundo (40px) é nos lados esquerdo/direito
+   (é um "atalho" pra não escrever padding-top, padding-bottom, etc.
+   separadamente).
+   display: flex com flex-direction: column empilha os elementos filhos
+   do header (a barra de cima e o menu) um embaixo do outro, em vez de
+   lado a lado. */
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+/* Aqui o flex é na direção padrão (linha/horizontal), então
+   justify-content: space-between empurra os filhos (logo de um lado,
+   carrinho/login do outro) pras pontas opostas, com espaço vazio no meio.
+   margin: 0 auto é o clássico "truque" de centralizar um bloco na
+   horizontal: 0 em cima/embaixo, e "auto" nas laterais faz o navegador
+   dividir o espaço sobrando igualmente dos dois lados. */
+
+header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--primary-color);
+    text-align: left;
+    transition: color 0.2s ease;
+}
+/* rem é uma unidade de medida relativa ao tamanho de fonte "base" do
+   navegador (diferente de px, que é um valor fixo) — é bastante usada
+   pra fontes porque se adapta melhor às configurações de acessibilidade
+   do usuário.
+   letter-spacing ajusta o espaço entre as letras (aqui, negativo, deixa
+   as letras um pouco mais "juntas"). */
+
+header h1:hover {
+    color: var(--primary-hover);
+}
+
+.header-brand-link {
+    text-decoration: none;
+}
+/* text-decoration: none remove o sublinhado padrão que os links (<a>)
+   têm — usado aqui porque o logo inteiro é um link, mas não queremos
+   que pareça um link de texto comum. */
+
+.user-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user-actions a {
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    padding: 8px 14px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: 1px solid transparent;
+}
+/* border: 1px solid transparent aqui é um "truque" comum: já reserva o
+   espaço de uma borda (mesmo invisível) desde o início, pra que quando
+   o hover abaixo adicionar uma borda visível, o elemento não "pule" de
+   tamanho na tela. */
+
+.user-actions a:hover {
+    background: #ffffff;
+    border-color: var(--border-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+
+.cart-badge {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 7px;
+    border-radius: 12px;
+    transition: background-color 0.2s ease;
+}
+/* Essa é a "bolinha" numerada do carrinho. border-radius bem alto
+   (12px, maior que a altura do próprio elemento) faz ele ficar
+   arredondado em forma de pílula/círculo. */
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+/* flex-wrap: wrap permite que os links do menu "quebrem linha" e vão
+   pra uma segunda fileira automaticamente se não couberem todos numa
+   tela estreita, em vez de espremer ou estourar o layout. */
+
+nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+nav a:hover, nav a.active {
+    background-color: #ffffff;
+    color: var(--primary-color);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+/* Selecionando "nav a:hover, nav a.active" junto (separado por vírgula)
+   aplica o MESMO estilo em dois casos diferentes: quando o mouse está
+   em cima do link, OU quando o link tem a classe "active" (usada pra
+   destacar em qual página o usuário está agora, mesmo sem o mouse
+   estar por cima). */
+
+/* ==========================================================================
+   4. CONTEÚDO PRINCIPAL & CARROSSEL DA HOME
+   ========================================================================== */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+/* max-width + margin: 0 auto é o padrão do site inteiro pra centralizar
+   o conteúdo e impedir que ele fique esticado demais em telas muito
+   largas. */
+
+#inicio {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+/* Repare que aqui o seletor é "#inicio" (com #), não ".inicio" (com
+   ponto): # é usado pra estilizar um id específico (só existe UM
+   elemento com esse id na página), enquanto . (ponto) é usado pra
+   classes (que podem se repetir em vários elementos). */
+
+#inicio h2 {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+#inicio p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+.banner-container {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    aspect-ratio: 1376 / 768;
+    margin: 25px auto;
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #f0eae1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+/* position: relative é essencial aqui: ele faz esse elemento virar a
+   "referência de posição" pros filhos que usam position: absolute (os
+   slides do carrossel, logo abaixo) — sem isso, o absolute dos filhos
+   se basearia na página inteira, não nesse container.
+   aspect-ratio: 1376 / 768 trava a proporção largura/altura do banner
+   (a mesma proporção das suas imagens), então ele muda de altura
+   automaticamente conforme a largura da tela, sem distorcer.
+   overflow: hidden "corta" qualquer coisa que ultrapasse os limites
+   dessa caixa — junto com o border-radius, garante que as imagens
+   fiquem com cantos arredondados mesmo se a imagem original for
+   quadrada. */
+
+.carrossel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carrossel-slides > * {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease-in-out, visibility 0.8s;
+}
+/* "> *" significa "todo filho DIRETO desse elemento" (aqui, cada
+   <a class="clickable-banner-slide"> dentro do carrossel).
+   position: absolute com top: 0 e left: 0 empilha TODOS os slides
+   exatamente na mesma posição, um em cima do outro — por isso dá pra
+   trocar de slide sem "empurrar" o layout.
+   opacity: 0 + visibility: hidden começam todos os slides invisíveis;
+   é o JavaScript (carrossel.js) quem adiciona a classe "ativo" no
+   slide certo pra revelar ele, e a transition faz essa troca ser um
+   "fade" suave em vez de um corte seco. */
+
+.carrossel-slides > *.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+/* Esse é o estilo aplicado só no slide que tem a classe "ativo" — o
+   JavaScript fica adicionando/removendo essa classe pra controlar qual
+   imagem aparece. */
+
+.carrossel-slides img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 12px;
+}
+/* object-fit: cover faz a imagem preencher todo o espaço do elemento
+   sem distorcer, cortando o excesso se a proporção não bater
+   perfeitamente (bem parecido com um "zoom + corte automático").
+   object-position: center garante que esse corte aconteça a partir do
+   centro da imagem. Essa dupla (object-fit + object-position) se repete
+   bastante no arquivo, sempre com esse mesmo objetivo. */
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+    border: none;
+    font-size: 1.5rem;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+    user-select: none;
+}
+/* top: 50% + transform: translateY(-50%) é a forma mais comum de
+   centralizar verticalmente um elemento posicionado (absolute): o
+   "top: 50%" desce ele até a metade do container, e o
+   translateY(-50%) sobe ele de volta em metade da PRÓPRIA altura dele,
+   deixando-o perfeitamente no meio.
+   border-radius: 50% transforma qualquer caixa quadrada num círculo
+   perfeito.
+   z-index: 10 controla a "ordem de empilhamento": garante que esse
+   botão fique por cima das imagens do carrossel, e não escondido atrás
+   delas.
+   user-select: none impede que o texto/símbolo da seta seja selecionado
+   sem querer quando a pessoa clica rápido several vezes. */
+
+.carousel-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+/* scale(1.1) aumenta o elemento em 10% no hover — repare que aqui o
+   transform tem DOIS efeitos juntos (translateY pra manter centralizado
+   + scale pra crescer), separados por espaço. */
+
+.carousel-btn.prev { left: 15px; }
+.carousel-btn.next { right: 15px; }
+/* Aqui não tem chaves em várias linhas porque a regra é bem curta — é
+   só CSS mais "compacto", faz a mesma coisa. Posiciona o botão de
+   voltar 15px da esquerda, e o de avançar 15px da direita. */
+
+/* ==========================================================================
+   5. GRID E CARDS DE PRODUTOS
+   ========================================================================== */
+.produtos h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.grid-produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    justify-content: center;
+}
+/* display: grid é outro sistema de layout do CSS (diferente do flex),
+   melhor pra organizar em "grade" (linhas E colunas ao mesmo tempo).
+   grid-template-columns define as colunas: repeat(auto-fit, minmax(250px, 1fr))
+   quer dizer "cria quantas colunas de no mínimo 250px couberem na tela,
+   e distribui o espaço que sobrar igualmente entre elas (1fr)". É esse
+   comando que faz os cards de produto se reorganizarem sozinhos
+   conforme o tamanho da tela, sem precisar de media query pra isso. */
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(212, 122, 148, 0.12);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.card img:hover {
+    opacity: 0.92;
+}
+
+.card h3 {
+    font-size: 1.15rem;
+    color: var(--text-main);
+    margin-bottom: 6px;
+    font-weight: 600;
+    width: 100%;
+}
+
+.card .detalhes-filhote {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.card .preco {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 18px;
+    width: 100%;
+}
+
+.card-actions {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-top: auto;
+}
+/* margin-top: auto dentro de um container flex em coluna "empurra" esse
+   elemento pro final da caixa, ocupando todo o espaço vazio acima dele
+   — é assim que os botões "Saiba Mais / Comprar" ficam sempre grudados
+   no rodapé do card, mesmo que a descrição do produto tenha tamanhos
+   diferentes de um card pro outro. */
+
+.card-actions .btn {
+    flex: 1;
+    padding: 9px 12px;
+    font-size: 0.9rem;
+}
+/* flex: 1 faz os dois botões dividirem igualmente o espaço horizontal
+   disponível dentro do .card-actions. */
+
+/* ==========================================================================
+   6. CARROSSEL DE RECOMENDADOS (SCROLL HORIZONTAL)
+   ========================================================================== */
+/* Esse é um carrossel DIFERENTE do banner lá em cima: em vez de trocar
+   de slide sozinho, esse é uma fileira que a pessoa arrasta/rola pro
+   lado (tipo os catálogos de streaming). Não usa nenhum JavaScript —
+   o efeito de "encaixar" nos cards é feito só com CSS. */
+.carrossel-recomendados-container {
+    max-width: 1200px;
+    margin: 40px auto 60px auto;
+    padding: 0 20px;
+}
+
+.carrossel-recomendados-container h3 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.carrossel-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 15px;
+}
+/* overflow-x: auto permite rolar esse container só na horizontal quando
+   o conteúdo é mais largo que a tela (cria uma barra de rolagem).
+   scroll-snap-type: x mandatory faz a rolagem "encaixar" (parar) sempre
+   alinhada no início de um card, em vez de parar no meio de dois — dá
+   aquela sensação de rolagem "presa", parecida com apps de celular.
+   -webkit-overflow-scrolling: touch melhora a suavidade da rolagem em
+   celulares/iOS. */
+
+.carrossel-card {
+    flex: 0 0 220px;
+    scroll-snap-align: start;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+/* flex: 0 0 220px trava a largura de cada card em exatamente 220px,
+   sem deixar ele crescer nem encolher (os dois "0" no começo), mesmo
+   dentro de um container flex.
+   scroll-snap-align: start diz "quando a rolagem parar de encaixar,
+   alinha o INÍCIO deste card" — trabalha junto com o
+   scroll-snap-type do container pai. */
+
+.carrossel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
+}
+
+.carrossel-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.carrossel-card h4 {
+    font-size: 1rem;
+    color: var(--text-main);
+    margin-bottom: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+/* Esse trio (white-space: nowrap + overflow: hidden + text-overflow: ellipsis)
+   é a "receita" padrão do CSS pra impedir que um texto muito longo
+   quebre linha ou vaze da caixa: ele força tudo numa linha só, esconde
+   o que não couber, e coloca "..." no final indicando que o texto foi
+   cortado. */
+
+.carrossel-card .preco {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+/* Custom Scrollbar */
+.carrossel-scroll::-webkit-scrollbar { height: 8px; }
+.carrossel-scroll::-webkit-scrollbar-track { background: var(--bg-color); border-radius: 10px; }
+.carrossel-scroll::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 10px; }
+.carrossel-scroll::-webkit-scrollbar-thumb:hover { background: var(--primary-color); }
+/* ::-webkit-scrollbar (com dois-pontos duplos, chamado "pseudo-elemento")
+   é uma forma de estilizar a barra de rolagem em si (funciona em
+   navegadores baseados em Chromium/Safari): "track" é o trilho de
+   fundo da barra, e "thumb" é a "bolinha"/barra que a pessoa arrasta. */
+
+/* ==========================================================================
+   7. PÁGINAS DE DETALHES DOS ANIMAIS
+   ========================================================================== */
+.detalhes-animal-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.detalhes-card {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    display: flex;
+    gap: 35px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    align-items: flex-start;
+    text-align: left;
+}
+/* align-items: flex-start alinha os filhos (imagem + informações) pelo
+   topo, em vez de esticar ou centralizar — útil quando um lado é mais
+   alto que o outro. */
+
+.detalhes-imagem {
+    flex: 1;
+    max-width: 450px;
+}
+
+.detalhes-imagem img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.detalhes-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.detalhes-info h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.detalhes-info .subtitulo {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.preco-destaque {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.lista-especificacoes {
+    list-style: none;
+    padding: 15px 0;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+/* list-style: none remove as bolinhas/marcadores padrão de uma lista
+   (<ul>/<li>), já que aqui a lista é usada só como estrutura, com
+   aparência própria. */
+
+.lista-especificacoes li {
+    padding: 6px 0;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.descricao {
+    line-height: 1.6;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+.acoes-detalhes {
+    display: flex;
+    gap: 15px;
+    margin-top: auto;
+}
+
+.acoes-detalhes .btn {
+    flex: 1;
+}
+
+/* ==========================================================================
+   8. FORMULÁRIOS, LOGIN E CADASTRO
+   ========================================================================== */
+.auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: calc(100vh - 200px);
+    padding: 40px 20px;
+}
+/* calc(100vh - 200px) faz uma "conta" dentro do próprio CSS: "vh" é uma
+   unidade que representa a altura da tela toda (100vh = 100% da altura
+   visível da janela). Aqui, pega essa altura total e subtrai 200px
+   (espaço aproximado do header+footer), garantindo que a caixa de
+   login fique bem centralizada mesmo em telas de tamanhos diferentes. */
+
+.auth-card, .auth-container {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 35px 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    text-align: center;
+    margin: 0 auto;
+}
+/* Selecionar ".auth-card, .auth-container" junto aplica o mesmo estilo
+   pras duas classes de uma vez — provavelmente usadas em páginas
+   diferentes (ex: login usa uma, cadastro usa outra) mas que devem
+   parecer visualmente iguais. */
+
+.auth-card h2, .auth-container h2 {
+    text-align: center;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.auth-subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
+.form-group input {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+/* outline: none remove o "contorno azul" padrão que os navegadores
+   colocam automaticamente em campos selecionados — aqui ele é removido
+   porque o :focus logo abaixo cria um destaque próprio (borda rosa) no
+   lugar. */
+
+.form-group input:focus {
+    border-color: var(--primary-color);
+    background: #ffffff;
+}
+/* :focus é a pseudo-classe do momento em que o campo está "selecionado"
+   (cursor piscando dentro dele, pronto pra digitar). */
+
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.auth-footer a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   9. CARRINHO DE COMPRAS
+   ========================================================================== */
+.cart-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 25px;
+}
+/* border-collapse: collapse é específico de tabelas: junta as bordas de
+   células vizinhas numa linha só, em vez de cada célula ter sua própria
+   bordinha separada (que deixaria um espacinho feio entre elas). */
+
+.cart-table th, .cart-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.cart-table th {
+    background-color: var(--nav-bg);
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    background: var(--nav-bg);
+    border: none;
+    color: var(--primary-color);
+    font-weight: bold;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.qty-btn:hover {
+    background: var(--primary-color);
+    color: #ffffff;
+}
+
+.remove-btn {
+    background: transparent;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+
+.remove-btn:hover {
+    transform: scale(1.2);
+}
+
+.cart-summary {
+    background: #fff;
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 350px;
+    margin-left: auto;
+    border: 1px solid var(--border-color);
+}
+/* margin-left: auto (sozinho, sem margin-right) empurra esse bloco
+   inteiro pra direita dentro do espaço disponível — diferente do
+   "margin: 0 auto" usado antes, que centraliza dos dois lados. */
+
+.cart-summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.cart-summary-row.total {
+    font-size: 1.3rem;
+    font-weight: bold;
+    border-top: 2px solid var(--border-color);
+    padding-top: 10px;
+    margin-top: 10px;
+    color: var(--primary-color);
+}
+
+/* ==========================================================================
+   10. CONTATO & MAPA
+   ========================================================================== */
+.contato-mapa-section {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 40px;
+    border-radius: 16px;
+    margin-top: 40px;
+}
+
+.contato-mapa-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.contato-mapa-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+}
+/* Esse é o "wrapper" que citei quando comentei o contato.html: aqui é
+   onde de fato se define que o formulário e o mapa ficam lado a lado
+   (flex), mas quebram pra baixo (flex-wrap: wrap) se a tela for
+   estreita demais pros dois caberem lado a lado. */
+
+.formulario-mini, .mapa {
+    flex: 1;
+    min-width: 300px;
+    background: var(--bg-color);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+/* flex: 1 em ambos faz formulário e mapa dividirem o espaço igualmente;
+   min-width: 300px garante que nenhum dos dois fique espremido menor
+   que isso — é essa combinação que faz eles "quebrarem linha"
+   automaticamente em telas pequenas (efeito citado no comentário
+   acima). */
+
+.formulario-mini h3, .mapa h3 {
+    color: var(--text-main);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.formulario-mini input, .formulario-mini textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s;
+}
+/* font-family: inherit faz o campo "puxar" a mesma fonte usada no
+   restante da página, em vez da fonte padrão do navegador pra
+   inputs/textareas (que costuma ser diferente por padrão). */
+
+.formulario-mini input:focus, .formulario-mini textarea:focus {
+    border-color: var(--primary-color);
+}
+
+.mapa iframe {
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* ==========================================================================
+   11. RODAPÉ
+   ========================================================================== */
+footer {
+    background-color: #2b2426;
+    color: #e6dedf;
+    padding: 50px 20px 20px 20px;
+    margin-top: 60px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+/* padding com 4 valores segue a ordem: topo, direita, baixo, esquerda
+   (sentido horário, começando de cima) — aqui, mais espaço em cima
+   (50px) do que embaixo (20px). */
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 220px;
+}
+
+.footer-col h4 {
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.footer-col p, .footer-col a {
+    color: #b5a8ac;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+/* display: block num link (<a>, que por padrão é "inline") faz ele se
+   comportar como um bloco que ocupa a linha inteira — é por isso que
+   cada link do rodapé fica um embaixo do outro, em vez de tudo grudado
+   na mesma linha. */
+
+.footer-col a:hover {
+    color: #ffffff;
+}
+
+.copyright {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+    text-align: center;
+    color: #8c7d82;
+    font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   12. RESPONSIVIDADE
+   ========================================================================== */
+/* Esse é o bloco de "media queries": regras que só valem quando a tela
+   tem no máximo (max-width) o tamanho indicado. Serve pra adaptar o
+   layout em celulares/tablets. Tudo aqui dentro sobrescreve, só nessas
+   telas menores, o que já foi definido nos blocos anteriores. */
+@media (max-width: 768px) {
+    header { padding: 15px 20px; }
+    .header-top { flex-direction: column; gap: 10px; }
+    .detalhes-card { flex-direction: column; padding: 20px; }
+    .detalhes-imagem { max-width: 100%; width: 100%; }
+    .detalhes-imagem img { height: 280px; }
+    .acoes-detalhes { flex-direction: column; }
+    .carrossel-card { flex: 0 0 180px; }
+    .carrossel-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+    .carrossel-scroll::-webkit-scrollbar { display: none; }
+    .cart-table th:nth-child(2), .cart-table td:nth-child(2) { display: none; }
+}
+/* Repare no padrão: várias dessas linhas trocam "flex-direction: row"
+   (lado a lado) por "column" (empilhado) — é a forma mais comum de
+   adaptar um layout de PC pra celular, empilhando o que antes ficava
+   lado a lado.
+   :nth-child(2) seleciona especificamente o 2º elemento filho (aqui, a
+   2ª coluna da tabela do carrinho) pra escondê-la em telas pequenas e
+   economizar espaço. */
+
+/* ==========================================================================
+   13. BANNERS DAS PÁGINAS DE CATEGORIA (Gatos, Cães, Aves, Roedores)
+   ========================================================================== */
+.category-banner {
+    width: 100%;
+    max-width: 1200px;
+    height: 320px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    margin: 0 auto 35px auto;
+    display: block;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
+}
+/* display: block é necessário aqui porque esse banner é uma <img>
+   sozinha (não dentro de um link/flex), e imagens são "inline" por
+   padrão — sem isso, o margin: auto pra centralizar não funcionaria
+   direito. */
+
+/* Responsividade para celulares e tablets */
+@media (max-width: 768px) {
+    .category-banner {
+        height: 200px;
+        border-radius: 12px;
+        margin-bottom: 25px;
+    }
+}
+/* Uma segunda media query, separada da primeira só por organização (fica
+   perto do bloco 13, que ela modifica) — mas o efeito é o mesmo do
+   bloco 12: ajustar essa parte especificamente em telas pequenas. */
+
+
+   /* ==========================================================================
+   14. Estilo das patinhas que seguem o mouse
+   ========================================================================== */
+
+
+.paw-print {
+    position: absolute;
+    font-size: 16px;
+    color: #ffb7b2; /* Cor pastel (rosa suave). Você pode trocar por #b5ead7 (verde) ou #ffdac1 (laranja) */
+    pointer-events: none; /* Garante que a patinha não atrapalhe cliques em botões ou links */
+    animation: fadeOut 1s forwards; /* Animação para sumir em 1 segundo */
+    z-index: 9999; /* Garante que fique acima de tudo */
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+        transform: scale(0.8) translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2) translateY(15px);
+    }
+}
+
+/* Animação de clique */
+.click-animation-item {
+    position: absolute;
+    font-size: 20px;
+    pointer-events: none; /* Não atrapalha cliques em links */
+    animation: subirESumir 1s ease-out forwards;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes subirESumir {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -80px) scale(1.4);
+    }
+}
+
+
+
+/* Estilo para a trilha de pegadas do pet */
+.trail-paw {
+    position: absolute;
+    font-size: 18px;
+    color: #b08968; /* Marronzinho pastel fofo */
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    animation: aparecerESumirTrilha 4s ease-in-out forwards;
+}
+
+@keyframes aparecerESumirTrilha {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    15% {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+    85% {
+        opacity: 0.85;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+}
+
+
+/* DEIXA CLICAR POR CIMA DAS PATINHAS DO CURSOR */
+.paw-print {
+    pointer-events: none;
+}
+
+
+
+
+
+
+
+
+
+/*---------------------------------------------*/
+
+/* ==========================================================================
+   EXTRAS DO SITE  [NOVO - bloco inteiro]  [VERSÃO 2 - ajustada ao seu style.css]
+   COLE ESTE BLOCO NO FIM DO SEU style.css, no lugar da versão anterior que
+   eu tinha te mandado (aquela usava cores "chutadas"; esta usa as MESMAS
+   variáveis que o resto do seu site já usa: --primary-color, --card-bg,
+   --text-main, --text-muted, --border-color, --nav-bg, --bg-color).
+   Todas as classes novas começam com "fx-" para não conflitar com as suas.
+   ========================================================================== */
+
+/* Transição suave ao trocar de tema */
+body {
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* ---------- Número do carrinho "pula" ---------- */
+.cart-badge.bump {
+    animation: fx-bump 0.4s ease;
+}
+@keyframes fx-bump {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.6); }
+    100% { transform: scale(1); }
+}
+
+/* ---------- Toast (notificação) ---------- */
+#fx-toast-box {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+.fx-toast {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card-bg);
+    color: var(--text-main);
+    padding: 12px 16px;
+    border-radius: 12px;
+    border-left: 5px solid var(--primary-color);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.18);
+    font-size: 14px;
+    max-width: 320px;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    pointer-events: auto;
+}
+.fx-toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+.fx-toast-acao {
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.fx-toast-acao:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* ---------- Botões do cabeçalho (favoritos, pedidos, tema) ---------- */
+.fx-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-right: 6px;
+}
+.fx-tools button {
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid transparent;
+    color: var(--text-main);
+    cursor: pointer;
+    font-size: 15px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+.fx-tools button:hover {
+    background: #ffffff;
+    border-color: var(--border-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+.fx-fav-count {
+    font-size: 11px;
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+/* ---------- Coração de favorito nos cards ---------- */
+/* [ALTERADO] O título deste bloco era "Coração de favorito e selo de
+   estoque nos cards". Como o estoque foi removido, ficou só o coração. */
+.fx-heart {
+    position: absolute;
+    /* [ALTERADO] Era top: 12px / right: 12px (canto do card). Aumentei para
+       28px para o coração cair DENTRO da foto, já que o card tem 20px de
+       espaçamento interno (padding) antes de a foto começar. */
+    top: 28px;
+    right: 28px;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.92);
+    color: #c9c2c4;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, color 0.2s;
+}
+.fx-heart:hover {
+    transform: scale(1.15);
+}
+.fx-heart.ativo {
+    color: var(--primary-color);
+}
+/* [REMOVIDO] Aqui existia a regra ".fx-stock { ... }", que estilizava o
+   selo "Restam X filhotes!" no canto superior esquerdo do card. Como o
+   JavaScript que criava esse selo (iniciarEstoque) também foi removido,
+   essa regra não é mais usada por nada. O coração (.fx-heart) continua
+   igual, no canto superior direito. */
+
+/* ---------- Barra de busca / ordenação ---------- */
+.fx-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 25px 0;
+}
+.fx-busca,
+.fx-ordem {
+    padding: 10px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: var(--card-bg);
+    color: var(--text-main);
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.fx-busca {
+    flex: 1;
+    min-width: 200px;
+}
+.fx-busca:focus,
+.fx-ordem:focus {
+    border-color: var(--primary-color);
+}
+.fx-vazio {
+    text-align: center;
+    padding: 20px;
+    color: var(--text-muted);
+}
+
+/* ---------- Estrelas de avaliação ---------- */
+.fx-avaliacao {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 14px 0;
+}
+.fx-av-titulo {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.fx-stars button {
+    background: none;
+    border: none;
+    font-size: 26px;
+    color: var(--border-color);
+    cursor: pointer;
+    padding: 0 2px;
+    transition: transform 0.15s, color 0.15s;
+}
+.fx-stars button.on {
+    color: #ffc940;
+}
+.fx-stars button:hover {
+    transform: scale(1.2);
+}
+.fx-av-msg {
+    color: var(--text-muted);
+}
+
+/* ---------- Cupom e frete no carrinho ---------- */
+.fx-cart-extras {
+    margin: 0 0 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.fx-field label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+.fx-row {
+    display: flex;
+    gap: 8px;
+}
+.fx-row input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-family: inherit;
+    min-width: 0;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.fx-row input:focus {
+    border-color: var(--primary-color);
+    background: var(--card-bg);
+}
+.fx-row button {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: 2px solid var(--primary-color);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.fx-row button:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+.fx-field small {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.85rem;
+}
+.fx-ok {
+    color: #2e9e6b;
+}
+.fx-erro {
+    color: #e74c3c;
+}
+
+/* ---------- Modal (favoritos, pedidos, quiz) ---------- */
+.fx-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 100001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    animation: fx-fade 0.2s ease;
+}
+@keyframes fx-fade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.fx-modal {
+    position: relative;
+    background: var(--card-bg);
+    color: var(--text-main);
+    width: 100%;
+    max-width: 520px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    border-top: 5px solid var(--primary-color);
+    text-align: left;
+}
+.fx-modal-title {
+    margin: 0 30px 16px 0;
+    color: var(--primary-color);
+    font-size: 1.4rem;
+}
+.fx-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-muted);
+    line-height: 1;
+}
+.fx-modal-close:hover {
+    color: var(--primary-color);
+}
+
+/* Itens da lista de favoritos */
+.fx-lista-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+.fx-lista-item img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+.fx-lista-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    color: var(--text-main);
+}
+.fx-lista-info span {
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.fx-mini {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+.fx-mini:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+.fx-mini-x {
+    background-color: transparent;
+    color: var(--text-muted);
+    border-color: var(--border-color);
+    padding: 8px 11px;
+}
+.fx-mini-x:hover {
+    background-color: var(--border-color);
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+.fx-limpar {
+    margin-top: 16px;
+}
+
+/* Pedidos */
+.fx-pedido {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+}
+.fx-pedido-topo {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+.fx-pedido-topo strong {
+    color: var(--primary-color);
+}
+.fx-pedido ul {
+    margin: 6px 0;
+    padding-left: 18px;
+    font-size: 0.9rem;
+}
+.fx-pedido-rodape {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 0.9rem;
+    border-top: 1px dashed var(--border-color);
+    padding-top: 8px;
+    margin-top: 8px;
+    color: var(--text-muted);
+}
+.fx-pedido-rodape strong {
+    color: var(--primary-color);
+}
+
+/* Quiz */
+.fx-quiz-passo {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin: 0 0 6px 0;
+}
+.fx-quiz-pergunta {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0 0 16px 0;
+}
+.fx-quiz-opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.fx-quiz-opt {
+    text-align: left;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.fx-quiz-opt:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+    transform: translateX(4px);
+}
+.fx-quiz-resultado-titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 0 0 8px 0;
+}
+.fx-quiz-link {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    margin: 12px 10px 0 0;
+    transition: background-color 0.25s ease;
+}
+.fx-quiz-link:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Celular */
+@media (max-width: 600px) {
+    #fx-toast-box {
+        right: 10px;
+        left: 10px;
+        top: 70px;
+    }
+    .fx-toast {
+        max-width: none;
+    }
+    .fx-modal {
+        padding: 22px 18px;
+    }
+}
+
+/* ==========================================================================
+   MODO ESCURO  (ativado quando o <body> tem a classe "dark")
+   ==========================================================================
+   Como seu style.css já usa variáveis CSS (:root { --bg-color, --card-bg,
+   --text-main, --text-muted, --nav-bg, --border-color }), redefinir essas
+   MESMAS variáveis dentro de body.dark já escurece automaticamente quase
+   tudo: header, nav, .card, .carrossel-card, .cart-container,
+   .contato-mapa-section, etc. Só precisamos tratar à parte os poucos
+   lugares do seu CSS que usam branco "fixo" (#ffffff) em vez de
+   var(--card-bg). */
+
+body.dark {
+    --bg-color: #17171f;
+    --card-bg: #232335;
+    --text-main: #eceaf0;
+    --text-muted: #a8a2b3;
+    --nav-bg: #232335;
+    --border-color: #3a3a52;
+    /* --primary-color e --primary-hover ficam do jeito que já eram: o rosa
+       do Fluffify continua igual, só o fundo/texto muda pra escuro. */
+}
+
+/* Lugares do seu style.css que usam #ffffff fixo (por isso não reagem
+   sozinhos à troca de variável lá em cima): */
+body.dark .detalhes-card,
+body.dark .auth-card,
+body.dark .auth-container,
+body.dark .cart-table,
+body.dark .cart-summary,
+body.dark .formulario-mini input,
+body.dark .formulario-mini textarea {
+    background-color: var(--card-bg);
+    color: var(--text-main);
+}
+
+body.dark .form-group input,
+body.dark .fx-row input {
+    background: var(--bg-color);
+    color: var(--text-main);
+    border-color: var(--border-color);
+}
+
+/* Os links do cabeçalho (.user-actions a, nav a) usam branco translúcido
+   fixo (rgba(255,255,255,...)) pra combinar com o fundo claro do header;
+   no escuro isso fica quase invisível, então trocamos por branco bem fraco. */
+body.dark .user-actions a,
+body.dark .fx-tools button {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--text-main);
+}
+body.dark .user-actions a:hover,
+body.dark .fx-tools button:hover {
+    background: rgba(255, 255, 255, 0.12);
+}
+body.dark nav a {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-main);
+}
+body.dark nav a:hover,
+body.dark nav a.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Cartõezinhos de banner e imagens ficam levemente escurecidos pra não
+   "brilharem" demais no meio do fundo escuro. */
+body.dark .banner-container {
+    background-color: #232335;
+}
+body.dark img {
+    filter: brightness(0.92);
+}
+
+/* Balão de dicas e notificação de adoção (do script.js original) também
+   usam fundo branco fixo no innerHTML deles — aqui pegamos pelo id. */
+body.dark #pet-speech-bubble,
+body.dark #adoption-toast {
+    background: var(--card-bg) !important;
+    color: var(--text-main) !important;
+}
+
+
+/* ==========================================================================
+   SEÇÕES EXTRAS DA HOME  [NOVO - bloco inteiro]
+   COLE ESTE BLOCO NO FIM DO SEU style.css (pode ser depois do modo escuro).
+   ==========================================================================
+   Só criei o que o seu CSS ainda não tinha. Tudo usa as MESMAS variáveis
+   do site (--primary-color, --card-bg, --text-main, --text-muted,
+   --border-color, --nav-bg), então o modo escuro funciona sozinho: quando
+   o body ganha a classe "dark", as variáveis mudam e essas seções mudam
+   junto, sem precisar de regra extra. */
+
+/* Espaço entre uma seção e outra */
+
+.home-secao {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+/* Frasezinha embaixo do título de uma seção */
+.home-sub {
+    color: var(--text-muted);
+    max-width: 700px;
+    margin: -15px auto 30px auto;
+}
+/* margin negativo em cima (-15px) "puxa" o texto pra perto do título, pois
+   o h2 (.produtos h2) já tem 30px de margem embaixo. */
+
+/* Bolinha com ícone (ou número) no topo dos cards */
+.home-icone {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--nav-bg);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 14px;
+    align-self: flex-start;
+}
+/* O .card usa align-items: center (centraliza os filhos). O align-self:
+   flex-start faz só a bolinha ir pra esquerda, alinhada com o texto. */
+
+/* Texto dentro dos cards novos */
+.card .home-texto {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    width: 100%;
+}
+
+/* Estrelas e autor dos depoimentos */
+.home-estrelas {
+    color: #ffc940;
+    letter-spacing: 3px;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    width: 100%;
+}
+.card .home-autor {
+    margin-top: auto;
+    padding-top: 14px;
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* ---------- Anúncios ---------- */
+.home-ad {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    flex-wrap: wrap;
+    background: linear-gradient(135deg, var(--nav-bg), var(--card-bg));
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px 35px;
+    margin-bottom: 50px;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+.home-ad.invertido {
+    flex-direction: row-reverse;
+}
+/* row-reverse inverte a ordem dos itens da linha: assim o segundo anúncio
+   fica "espelhado" em relação ao primeiro, e a página fica menos repetitiva. */
+.home-ad-tag {
+    position: absolute;
+    top: 10px;
+    right: 16px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.home-ad-icone {
+    font-size: 3rem;
+    color: var(--primary-color);
+}
+.home-ad-texto {
+    flex: 1;
+    min-width: 220px;
+}
+.home-ad-texto h3 {
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    margin-bottom: 6px;
+}
+.home-ad-texto p {
+    color: var(--text-muted);
+}
+.home-ad-texto strong {
+    color: var(--text-main);
+}
+
+/* ---------- Por que a Fluffify ---------- */
+.home-sobre {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 35px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 50px;
+    text-align: left;
+}
+.home-sobre-texto {
+    flex: 1 1 300px;
+}
+.home-sobre-texto h2 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.home-sobre-texto p {
+    color: var(--text-muted);
+}
+.home-sobre-lista {
+    flex: 1 1 300px;
+    list-style: none;
+    display: grid;
+    gap: 16px;
+}
+.home-sobre-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    color: var(--text-muted);
+}
+.home-sobre-lista li i {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    margin-top: 3px;
+    width: 24px;
+    text-align: center;
+}
+.home-sobre-lista li strong {
+    color: var(--text-main);
+}
+
+/* ---------- Perguntas frequentes ---------- */
+.home-faq {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 12px;
+    text-align: left;
+}
+.home-faq details {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 20px;
+    transition: box-shadow 0.2s ease;
+}
+.home-faq details:hover {
+    box-shadow: 0 4px 12px rgba(212, 122, 148, 0.12);
+}
+.home-faq summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--text-main);
+}
+.home-faq details[open] summary {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+/* "details[open]" é o estado do <details> quando está aberto. */
+.home-faq details p {
+    color: var(--text-muted);
+}
+
+/* Celular */
+@media (max-width: 768px) {
+    .home-ad {
+        padding: 30px 20px 25px 20px;
+    }
+    .home-ad.invertido {
+        flex-direction: row;
+    }
+    .home-sobre {
+        padding: 25px 20px;
+    }
+}
+
+
+/* ==========================================================================
+   PÁGINA "TODOS OS PETS"  [NOVO - bloco inteiro]
+   COLE ESTE BLOCO NO FIM DO SEU style.css.
+   Usa as mesmas variáveis de cor do site, então o modo escuro funciona sozinho.
+   ========================================================================== */
+
+/* ---------- Botões de filtro por categoria ---------- */
+.fx-filtros {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 25px 0;
+}
+.fx-filtros button {
+    background: var(--card-bg);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+/* border-radius: 999px deixa o botão em formato de "pílula". */
+.fx-filtros button:hover {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    transform: translateY(-1px);
+}
+.fx-filtros button.ativo {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #ffffff;
+}
+/* A classe "ativo" é colocada pelo script.js no botão que está selecionado. */
+
+/* ---------- Etiqueta de categoria dentro do card ---------- */
+.tag-categoria {
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #ffffff;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+/* O .card usa align-items: center; o align-self: flex-start faz só a
+   etiqueta ir pra esquerda, alinhada com o título. */
+
+/* Cada categoria usa a MESMA cor principal da sua própria página
+   (as cores que você definiu no <style> de gatos.html, caes.html etc.). */
+.tag-gatos    { background: #a3729d; }
+.tag-caes     { background: #5c82a6; }
+.tag-aves     { background: #618b76; }
+.tag-roedores { background: #bc7948; }

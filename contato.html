@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Fale Conosco - Fluffify</title>
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="header-brand-link">
+                <h1><i class="fa-solid fa-paw"></i> Fluffify</h1>
+            </a>
+            <div class="user-actions">
+                <a href="carrinho.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge">0</span>
+                </a>
+                <a href="login.html"><i class="fa-solid fa-user"></i> Entrar</a>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="caes.html"><i class="fa-solid fa-dog"></i> Cães</a>
+            <a href="gatos.html"><i class="fa-solid fa-cat"></i> Gatos</a>
+            <a href="aves.html"><i class="fa-solid fa-dove"></i> Aves</a>
+            <a href="roedores.html"><i class="fa-solid fa-otter"></i> Roedores</a>
+            <a href="contato.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Conteúdo exclusivo desta página: seção com formulário de contato + mapa lado a lado. -->
+        <section class="contato-mapa-section">
+            <h2>Central de Atendimento</h2>
+            <div class="contato-mapa-container">
+                <!-- contato-mapa-container: div "wrapper" que organiza formulário e mapa
+                     um do lado do outro (isso é controlado pelo CSS, aqui no HTML só
+                     colocamos as duas partes dentro da mesma div). -->
+
+                <div class="formulario-mini">
+                    <h3>Envie sua mensagem</h3>
+                    <form onsubmit="alert('Mensagem enviada com sucesso!'); event.preventDefault();">
+                        <!-- onsubmit: código que roda quando o usuário clica em "Enviar Mensagem".
+                             Como é um site fake, ele não manda a mensagem de verdade pra lugar
+                             nenhum: só mostra um alert() de sucesso.
+                             event.preventDefault(): impede o comportamento padrão do formulário,
+                             que seria recarregar a página; sem isso, o alert nem daria tempo de
+                             aparecer, pois a página recarregaria na hora. -->
+                        <input type="text" placeholder="Seu Nome Completo" required>
+                        <input type="email" placeholder="Seu E-mail" required>
+                        <input type="text" placeholder="Assunto (Ex: Dúvida sobre adoção)" required>
+                        <textarea placeholder="Escreva sua mensagem detalhadamente..." rows="5" required></textarea>
+                        <!-- required em todos os campos: o próprio navegador bloqueia o envio
+                             se algum campo estiver vazio, sem precisar de nenhum código extra. -->
+                        <button type="submit" class="btn">Enviar Mensagem</button>
+                    </form>
+                </div>
+
+                <div class="mapa">
+                    <h3>Nossa Localização</h3>
+                    <p style="margin-bottom: 12px; font-size: 0.9rem; color: var(--text-muted, #777);">Av. dos Fofinhos, 123 - Vila dos Pets, São Paulo - SP</p>
+                    <!-- style="...": aqui é um CSS aplicado direto na tag (CSS "inline"), só
+                         pra esse parágrafo, em vez de estar no arquivo style.css. -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.197464049877!2d-46.65429992373017!3d-23.561384861595115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f4375255d67c5!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%2C%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr" width="100%" height="280" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <!-- iframe: "janela" que mostra uma página de outro site dentro da sua página.
+                         Aqui é o mapa do Google Maps embutido (o link enorme dentro do src é o
+                         endereço gerado pelo próprio Google quando você pega o código de "Incorporar mapa").
+                         loading="lazy": só carrega o mapa quando o usuário rolar a página até ele,
+                         deixando o carregamento inicial da página mais rápido. -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Fluffify</h4>
+                <p>Especialistas em acolhimento e adoção responsável de filhotes para todo o país.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="caes.html">Cães</a>
+                <a href="gatos.html">Gatos</a>
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-brands fa-instagram"></i> @fluffify</p>
+                <p><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Fluffify - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+    <script src="patinhas.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Cadastro de Cliente - Fluffify</title>
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="header-brand-link">
+                <h1><i class="fa-solid fa-paw"></i> Fluffify</h1>
+            </a>
+            <div class="user-actions">
+                <a href="carrinho.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge">0</span>
+                </a>
+                <a href="login.html"><i class="fa-solid fa-user"></i> Entrar</a>
+            </div>
+        </div>
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="caes.html"><i class="fa-solid fa-dog"></i> Cães</a>
+            <a href="gatos.html"><i class="fa-solid fa-cat"></i> Gatos</a>
+            <a href="aves.html"><i class="fa-solid fa-dove"></i> Aves</a>
+            <a href="roedores.html"><i class="fa-solid fa-otter"></i> Roedores</a>
+            <a href="contato.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a>
+        </nav>
+    </header>
+
+    <main class="auth-page">
+        <!-- class="auth-page": diferente do grid de produtos, essa classe centraliza
+             um cartão único na tela — usada só nas páginas de login/cadastro. -->
+        <div class="auth-card">
+            <h2>Criar Minha Conta 🐾</h2>
+            <p class="auth-subtitle">Cadastre-se para acompanhar seus filhotes e finalizar compras com facilidade.</p>
+
+            <form id="form-cadastro">
+                <!-- <form>: agrupa todos os campos do cadastro.
+                     id="form-cadastro": esse nome precisa ser EXATAMENTE igual ao que está
+                     no script.js (document.getElementById('form-cadastro')). É por esse id
+                     que o JavaScript "encontra" o formulário e fica ouvindo o clique em
+                     "Cadastrar". Quando isso acontece, o script.js chama a função
+                     handleRegister(), que:
+                       1) impede a página de recarregar (event.preventDefault());
+                       2) confere se os termos foram aceitos, se o telefone é válido e se
+                          as duas senhas são iguais;
+                       3) salva o nome, e-mail e telefone no localStorage (é isso que faz
+                          seu nome aparecer no topo do site);
+                       4) mostra um alerta de sucesso e leva o usuário pra home.
+                     Repare que o formulário NÃO tem onsubmit aqui: quem cuida do envio
+                     é o script.js, que é o lugar certo pra guardar essa lógica. -->
+
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome completo" required>
+                    <!-- label for="nome" + input id="nome": ligados pelo mesmo valor, então
+                         clicar no texto "Nome Completo" também foca o campo.
+                         O id também é usado pelo JavaScript: handleRegister busca
+                         getElementById('nome') pra ler o que a pessoa digitou.
+                         required: o navegador não deixa enviar o formulário se estiver vazio. -->
+                </div>
+
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="seuemail@exemplo.com" required>
+                    <!-- type="email": o navegador já valida um formato básico (exige "@") sozinho. -->
+                </div>
+
+                <div class="form-group">
+                    <label for="telefone">Telefone / WhatsApp</label>
+                    <input type="tel" id="telefone" placeholder="(11) 99999-9999" required>
+                    <!-- type="tel": em celulares, abre o teclado numérico automaticamente.
+                         O id="telefone" também é usado pela função setupPhoneMask() do
+                         script.js, que formata o número automaticamente enquanto a pessoa digita. -->
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="Crie uma senha segura" minlength="6" required>
+                    <!-- type="password": esconde os caracteres digitados.
+                         minlength="6": exige no mínimo 6 caracteres. -->
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmarSenha">Confirmar Senha</label>
+                    <input type="password" id="confirmarSenha" placeholder="Repita a senha" minlength="6" required>
+                    <!-- O handleRegister compara esse campo com o de "senha": se forem
+                         diferentes, mostra um alerta e não deixa cadastrar. -->
+                </div>
+
+                <div class="form-terms">
+                    <input type="checkbox" id="termos" required>
+                    <label for="termos">
+                        Li e aceito os <a href="termos-de-uso.html" target="_blank">Termos de Uso</a> e a <a href="politica-de-privacidade.html" target="_blank">Política de Privacidade</a>.
+                    </label>
+                    <!-- checkbox obrigatório: só cadastra se marcar.
+                         target="_blank": abre os links em nova aba, sem perder o formulário preenchido. -->
+                </div>
+
+                <button type="submit" class="btn btn-block">Cadastrar</button>
+                <!-- type="submit": dispara o envio do form, depois de o navegador conferir
+                     sozinho todos os "required" e "minlength". Esse envio é "capturado" pelo
+                     script.js (pelo id="form-cadastro" lá em cima). -->
+            </form>
+
+            <div class="auth-footer">
+                <p>Já possui uma conta? <a href="login.html">Faça seu Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Fluffify</h4>
+                <p>Especialistas em acolhimento e adoção responsável de filhotes para todo o país.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="caes.html">Cães</a>
+                <a href="gatos.html">Gatos</a>
+                <a href="contato.html">Contato</a>
+                <a href="termos-de-uso.html">Termos de Uso</a>
+                <a href="politica-de-privacidade.html">Política de Privacidade</a>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-brands fa-instagram"></i> @fluffify</p>
+                <p><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Fluffify - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+    <!-- Diferença: aqui só entra o script.js, não tem o carrossel.js, porque essa
+         página não tem nenhum banner deslizante. -->
+    <script src="patinhas.js" defer></script>
+</body>
+</html>

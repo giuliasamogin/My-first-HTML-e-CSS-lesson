@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fluffify - Mundo dos Filhotes</title>
+
+    <!-- Ícone na aba do navegador -->
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Biblioteca externa que fornece os ícones prontos usados em todo o site (pata, casinha, carrinho etc.) -->
+
+    <link rel="stylesheet" href="style.css">
+    <!-- Arquivo próprio de CSS: cores, espaçamentos, layout de todo o site. -->
+</head>
+<body>
+    <!-- ===================== HEADER (igual em TODAS as páginas do site) ===================== -->
+    <header>
+        <div class="header-top">
+            <a href="index.html" class="header-brand-link">
+                <h1><i class="fa-solid fa-paw"></i> Fluffify</h1>
+            </a>
+            <!-- Logo do site: um link (<a>) para a home, envolvendo o <h1> com o nome da marca.
+                 <i class="fa-solid fa-paw"></i> é o ícone de pata do Font Awesome. -->
+
+            <div class="user-actions">
+                <a href="carrinho.html" title="Carrinho de Compras" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span id="cart-count" class="cart-badge">0</span>
+                    <!-- id="cart-count": o script.js usa esse id para atualizar o número de itens
+                         do carrinho, no cabeçalho de todas as páginas. -->
+                </a>
+                <a href="login.html" id="nav-login-link">
+                    <i class="fa-solid fa-user"></i> Entrar
+                </a>
+            </div>
+        </div>
+        <nav>
+            <!-- Menu principal, um link por categoria. class="active" marca em qual página
+                 o usuário está (aqui, "Início"); o CSS usa isso pra destacar o item do menu. -->
+            <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="caes.html"><i class="fa-solid fa-dog"></i> Cães</a>
+            <a href="gatos.html"><i class="fa-solid fa-cat"></i> Gatos</a>
+            <a href="aves.html"><i class="fa-solid fa-dove"></i> Aves</a>
+            <a href="roedores.html"><i class="fa-solid fa-otter"></i> Roedores</a>
+            <a href="contato.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a>
+        </nav>
+    </header>
+    <!-- ======================================================================================= -->
+
+    <main>
+        <!-- <main>: aqui começa o conteúdo que é ÚNICO da página inicial. -->
+
+        <section id="inicio">
+            <h2>Bem-vindo ao Mundo dos Filhotes</h2>
+
+            <!-- CARROSSEL COM BANNERS CLICÁVEIS E SETAS -->
+            <div class="banner-container">
+                <!-- Slideshow de banners que troca de imagem sozinho, controlado pelo carrossel.js. -->
+
+                <div class="carrossel-slides">
+                    <!-- "Trilho" com todos os slides, um do lado do outro. -->
+
+                    <a href="index.html" class="clickable-banner-slide ativo">
+                        <img src="midia/banner/banner1.jpeg" alt="Banner Principal">
+                    </a>
+                    <!-- class="ativo": marca o slide visível no momento; o JS troca essa classe
+                         de slide pra slide, criando o efeito de "passar" as imagens. -->
+
+                    <a href="gatos.html" class="clickable-banner-slide">
+                        <img src="midia/banner/gatos.jpeg" alt="Gatos">
+                    </a>
+                    <a href="caes.html" class="clickable-banner-slide">
+                        <img src="midia/banner/cachorros.jpeg" alt="Cachorro">
+                    </a>
+                    <a href="aves.html" class="clickable-banner-slide">
+                        <img src="midia/banner/aves.jpeg" alt="Aves">
+                    </a>
+                    <a href="roedores.html" class="clickable-banner-slide">
+                        <img src="midia/banner/roedpr.jpeg" alt="Roedores">
+                    </a>
+                    <!-- Cada slide é imagem + link ao mesmo tempo: clicar no banner leva
+                         direto pra categoria correspondente. -->
+                </div>
+
+                <!-- Botões de Navegação (Setas) -->
+                <button class="carousel-btn prev" aria-label="Slide anterior">&#10094;</button>
+                <button class="carousel-btn next" aria-label="Próximo slide">&#10095;</button>
+                <!-- Setas manuais. &#10094;/&#10095; são os símbolos ❮ ❯ em código HTML.
+                     aria-label: texto lido por leitores de tela, já que os botões não têm
+                     texto visível. O carrossel.js escuta o clique pra mudar de slide. -->
+            </div>
+
+            <p>Conectamos você aos filhotes mais dóceis, saudáveis e cheios de carinho. Nossa missão é proporcionar momentos de pura alegria e companheirismo para o seu lar, sempre com total responsabilidade e bem-estar animal.</p>
+        </section>
+
+        <section class="produtos">
+            <!-- Grade de produtos em destaque: um "card" por animal, sempre com a mesma
+                 estrutura interna (img > h3 > p.detalhes > p.preco > div.card-actions),
+                 só trocando os dados. -->
+            <h2>Destaques da Semana</h2>
+            <div class="grid-produtos">
+
+                <div class="card">
+                    <img src="midia/gatos/cat1.jpeg" alt="Gatinho fofinho" onclick="window.location.href='animais/gato-mel.html'">
+                    <!-- onclick faz a imagem também funcionar como link para a página do produto. -->
+                    <h3>Gatinho Mel</h3>
+                    <p class="detalhes-filhote">2 meses • Vacinado e Vermifugado</p>
+                    <p class="preco">R$ 1.200,00</p>
+                    <div class="card-actions">
+                        <a href="animais/gato-mel.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('cat1', 'Gatinho Mel', 1200, 'midia/gatos/cat1.jpeg')" class="btn"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                        <!-- addToCart(id, nome, preço, imagem): função do script.js que salva
+                             esse item no carrinho de compras. -->
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="midia/cachorro/dog1.jpeg" alt="Cachorrinho fofinho" onclick="window.location.href='animais/cao-bidu.html'">
+                    <h3>Cachorrinho Bidu</h3>
+                    <p class="detalhes-filhote">45 dias • Pedigree incluso</p>
+                    <p class="preco">R$ 2.500,00</p>
+                    <div class="card-actions">
+                        <a href="animais/cao-bidu.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('dog1', 'Cachorrinho Bidu', 2500, 'midia/cachorro/dog1.jpeg')" class="btn"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="midia/aves/pato.jpg" alt="Patinho fofinho" onclick="window.location.href='animais/ave-pato-mandarim.html'">
+                    <h3>Patinho</h3>
+                    <p class="detalhes-filhote">1 mês • Muito dócil</p>
+                    <p class="preco">R$ 750,00</p>
+                    <div class="card-actions">
+                        <a href="animais/ave-pato-mandarim.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('pato1', 'Patinho Mandarim', 750, 'midia/aves/pato.jpg')" class="btn"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="midia/roedores/coelho.jpeg" alt="Coelhinho fofinho" onclick="window.location.href='animais/roedor-coelho.html'">
+                    <h3>Coelhinho</h3>
+                    <p class="detalhes-filhote">2 meses • Saudável</p>
+                    <p class="preco">R$ 500,00</p>
+                    <div class="card-actions">
+                        <a href="animais/roedor-coelho.html" class="btn btn-secondary">Saiba Mais</a>
+                        <button onclick="addToCart('coelho1', 'Coelhinho', 500, 'midia/roedores/coelho.jpeg')" class="btn"><i class="fa-solid fa-cart-plus"></i> Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- ==========================================================================-->
+     
+
+
+<!-- ---------------------------- CURIOSIDADES ---------------------------- -->
+<section class="produtos home-secao">
+    <h2>🐾 Você sabia? Curiosidades</h2>
+    <div class="grid-produtos">
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-moon"></i></div>
+            <h3>Gatos são dorminhocos</h3>
+            <p class="home-texto">Um gato adulto costuma dormir entre 12 e 16 horas por dia. Filhotes dormem ainda mais!</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-dog"></i></div>
+            <h3>O olfato dos cães</h3>
+            <p class="home-texto">Cães têm cerca de 300 milhões de células olfativas. Nós, humanos, temos uns 6 milhões.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-tooth"></i></div>
+            <h3>Dentes que não param</h3>
+            <p class="home-texto">Os dentes de coelhos e roedores crescem a vida inteira, por isso eles precisam roer.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-music"></i></div>
+            <h3>Aves cantoras</h3>
+            <p class="home-texto">Periquitos e papagaios conseguem imitar sons e até palavras que ouvem em casa.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ---------------------------- ANÚNCIO: VETERINÁRIO ---------------------------- -->
+<!-- (clínica fictícia, só pra compor o site) -->
+<div class="home-ad">
+    <span class="home-ad-tag">Anúncio</span>
+    <div class="home-ad-icone"><i class="fa-solid fa-stethoscope"></i></div>
+    <div class="home-ad-texto">
+        <h3>Clínica Vet Amigo</h3>
+        <p>Cuidar do seu filhote começa com uma boa consulta. <strong>Primeira consulta com 20% de desconto</strong> para clientes Fluffify.</p>
+    </div>
+    <a href="#" class="btn">Agendar consulta</a>
+</div>
+
+
+<!-- ---------------------------- CUIDADOS ---------------------------- -->
+<section class="produtos home-secao">
+    <h2> Cuidados essenciais com seu pet</h2>
+    <p class="home-sub">O básico para seu novo amiguinho crescer saudável e feliz.</p>
+    <div class="grid-produtos">
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-bowl-food"></i></div>
+            <h3>Alimentação</h3>
+            <p class="home-texto">Ração adequada à idade e ao porte, em horários regulares, e água fresca sempre disponível.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-syringe"></i></div>
+            <h3>Vacinas e vermífugo</h3>
+            <p class="home-texto">Siga o calendário indicado pelo veterinário e mantenha as doses sempre em dia.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-heart"></i></div>
+            <h3>Carinho e brincadeira</h3>
+            <p class="home-texto">Brincar todo dia gasta energia, fortalece o vínculo e evita o estresse do bichinho.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone"><i class="fa-solid fa-broom"></i></div>
+            <h3>Higiene e ambiente</h3>
+            <p class="home-texto">Um cantinho limpo e confortável para dormir faz toda a diferença na saúde do pet.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ---------------------------- SOBRE A FLUFFIFY ---------------------------- -->
+<section class="home-sobre">
+    <div class="home-sobre-texto">
+        <h2>Por que a Fluffify?</h2>
+        <p>Nascemos com uma ideia simples: todo filhote merece encontrar uma família que o ame. Cada pet que chega até nós é cuidado com atenção, carinho e responsabilidade, do primeiro dia até a adoção.</p>
+    </div>
+    <ul class="home-sobre-lista">
+        <li><i class="fa-solid fa-shield-heart"></i><span><strong>Saúde em primeiro lugar.</strong> Filhotes vacinados e vermifugados.</span></li>
+        <li><i class="fa-solid fa-hand-holding-heart"></i><span><strong>Adoção responsável.</strong> Cada animal é único e tratado como tal.</span></li>
+        <li><i class="fa-solid fa-truck-fast"></i><span><strong>Entrega cuidadosa.</strong> Frete calculado pelo seu CEP.</span></li>
+        <li><i class="fa-solid fa-headset"></i><span><strong>Suporte depois da adoção.</strong> Estamos por perto para ajudar.</span></li>
+    </ul>
+</section>
+
+
+<!-- ---------------------------- COMO ADOTAR ---------------------------- -->
+<section class="produtos home-secao">
+    <h2>Como adotar em 3 passos</h2>
+    <div class="grid-produtos">
+
+        <div class="card">
+            <div class="home-icone">1</div>
+            <h3>Escolha seu filhote</h3>
+            <p class="home-texto">Navegue pelas categorias, favorite os que mais gostar e conheça cada um em detalhes.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone">2</div>
+            <h3>Adicione ao carrinho</h3>
+            <p class="home-texto">Tem cupom? Aplique no carrinho e confira o desconto no total do pedido.</p>
+        </div>
+
+        <div class="card">
+            <div class="home-icone">3</div>
+            <h3>Receba em casa</h3>
+            <p class="home-texto">Calcule o frete pelo CEP. Em compras acima de R$ 1.500 o frete é grátis!</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ---------------------------- ANÚNCIO: RAÇÃO ---------------------------- -->
+<!-- (produto fictício; a classe "invertido" troca a ordem: ícone à direita) -->
+<div class="home-ad invertido">
+    <span class="home-ad-tag">Anúncio</span>
+    <div class="home-ad-icone"><i class="fa-solid fa-bone"></i></div>
+    <div class="home-ad-texto">
+        <h3>Ração PremiumPet Filhotes</h3>
+        <p>Nutrição completa para o começo de vida. Use o cupom <strong>FLUFFY10</strong> no carrinho e ganhe 10% de desconto no pedido.</p>
+    </div>
+    <a href="#" class="btn btn-secondary">Ver ofertas</a>
+</div>
+
+
+<!-- ---------------------------- DEPOIMENTOS ---------------------------- -->
+<section class="produtos home-secao">
+    <h2> Quem adotou, aprovou</h2>
+    <div class="grid-produtos">
+
+        <div class="card">
+            <div class="home-estrelas">★★★★★</div>
+            <p class="home-texto">“O Mel chegou saudável e já se sente em casa. Atendimento super atencioso!”</p>
+            <p class="home-autor">Mariana S. · São Paulo</p>
+        </div>
+
+        <div class="card">
+            <div class="home-estrelas">★★★★★</div>
+            <p class="home-texto">“Processo simples e transparente. Meus filhos amaram o novo integrante da família.”</p>
+            <p class="home-autor">Carlos R. · Campinas</p>
+        </div>
+
+        <div class="card">
+            <div class="home-estrelas">★★★★★</div>
+            <p class="home-texto">“Recebi todas as informações de vacina e cuidados. Recomendo de olhos fechados!”</p>
+            <p class="home-autor">Beatriz L. · Santos</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ---------------------------- PERGUNTAS FREQUENTES ---------------------------- -->
+<!-- <details> e <summary> são do próprio HTML: o navegador abre e fecha a
+     resposta ao clicar, sem precisar de JavaScript. -->
+<section class="produtos home-secao">
+    <h2> Perguntas frequentes</h2>
+    <div class="home-faq">
+
+        <details>
+            <summary>Os filhotes já vêm vacinados?</summary>
+            <p>Sim! Cada página de animal informa a idade, as vacinas aplicadas e se o filhote já foi vermifugado.</p>
+        </details>
+
+        <details>
+            <summary>Como funciona o frete?</summary>
+            <p>No carrinho, digite seu CEP e calculamos o valor e o prazo. Compras a partir de R$ 1.500 têm frete grátis.</p>
+        </details>
+
+        <details>
+            <summary>Posso usar cupom de desconto?</summary>
+            <p>Pode! No carrinho, digite o código no campo de cupom e clique em Aplicar. Um exemplo é o FLUFFY10, com 10% de desconto.</p>
+        </details>
+
+        <details>
+            <summary>Posso guardar os pets que mais gostei?</summary>
+            <p>Claro! Toque no coração do card e o pet vai para a sua lista de favoritos, no topo do site.</p>
+        </details>
+
+    </div>
+</section>
+    </main>
+
+    <!-- ===================== FOOTER (igual em TODAS as páginas do site) ===================== -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4><i class="fa-solid fa-paw"></i> Fluffify</h4>
+                <p>Especialistas em acolhimento e adoção responsável de filhotes para todo o país.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="caes.html">Cães</a>
+                <a href="gatos.html">Gatos</a>
+                <a href="aves.html">Aves</a>
+                <a href="roedores.html">Roedores</a>
+                <a href="contato.html">Contato</a>
+                <a href="termos-de-uso.html">Termos de Uso</a>
+                <a href="politica-de-privacidade.html">Política de Privacidade</a>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento & Redes</h4>
+                <p><i class="fa-brands fa-instagram"></i> @fluffify</p>
+                <p><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Fluffify - Projeto Acadêmico (Todos os direitos reservados).</p>
+    </footer>
+    <!-- ======================================================================================= -->
+
+    <script src="carrossel.js" defer></script>
+    <!-- Script responsável só pelo funcionamento do carrossel de banners lá em cima. -->
+    <script src="script.js" defer></script>
+    <!-- Script principal: carrinho, contador de itens, funções como addToCart() usadas nesta página.
+         defer: espera o HTML carregar por completo antes de rodar o script, evitando erros de
+         "elemento não encontrado". -->
+    <script src="patinhas.js" defer></script>
+    <!-- Script das patinhas -->
+</body>
+</html>

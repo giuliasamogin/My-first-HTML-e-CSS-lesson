@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Seu Carrinho - Fluffify</title>
+    <link rel="icon" type="image/x-icon" href="img/icone.ico">
+    
+</head>
+
+<body>
+    <header>
+
+        <div class="header-top">
+
+            <a href="index.html" class="header-brand-link">
+                <h1><i class="fa-solid fa-paw"></i> Fluffify</h1>
+            </a>
+            <div class="user-actions">
+                <a href="carrinho.html" class="cart-link">
+                    <i class="fa-solid fa-cart-shopping"></i> Carrinho <span class="cart-badge">0</span>
+                </a>
+                <a href="login.html"><i class="fa-solid fa-user"></i> Entrar</a>
+            </div>
+        </div>
+
+        <nav>
+            <a href="index.html"><i class="fa-solid fa-house"></i> Início</a>
+            <a href="caes.html"><i class="fa-solid fa-dog"></i> Cães</a>
+            <a href="gatos.html"><i class="fa-solid fa-cat"></i> Gatos</a>
+            <a href="aves.html"><i class="fa-solid fa-dove"></i> Aves</a>
+            <a href="roedores.html"><i class="fa-solid fa-otter"></i> Roedores</a>
+            <a href="contato.html"><i class="fa-solid fa-envelope"></i> Fale Conosco</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <main>: conteúdo principal e único de CADA página (o que muda de página pra página). -->
+
+        <div class="cart-container">
+            <h2>Carrinho de Compras 🐾</h2>
+
+            <table class="cart-table">
+                <!-- Tabela usada para exibir os itens do carrinho em formato de linhas e colunas. -->
+                <thead>
+                    <!-- Cabeçalho da tabela: os nomes das colunas. -->
+                    <tr>
+                        <th>Item</th>
+                        <th>Preço Unitário</th>
+                        <th>Quantidade</th>
+                        <th>Subtotal</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items-container">
+                    <!-- Corpo da tabela: começa VAZIO de propósito.
+                         id="cart-items-container" é o "gancho" que o script.js usa para encontrar esse
+                         elemento e preencher as linhas da tabela dinamicamente com JavaScript,
+                         de acordo com o que o usuário colocou no carrinho (via localStorage do navegador). -->
+                    <!-- Gerado dinamicamente via script.js -->
+                </tbody>
+            </table>
+
+            <div class="cart-summary">
+                <!-- Resumo do pedido: subtotal, total e botão de finalizar. -->
+
+                <div class="cart-summary-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">R$ 0,00</span>
+                    <!-- id="cart-subtotal": outro "gancho" para o JavaScript. O valor "R$ 0,00" aqui é só um
+                         placeholder inicial; o script.js substitui esse texto pelo valor real calculado. -->
+                </div>
+                <div class="cart-summary-row total">
+                    <span>Total:</span>
+                    <span id="cart-total">R$ 0,00</span>
+                    <!-- Mesma lógica do subtotal: id usado pelo JS para inserir o valor calculado. -->
+                </div>
+                <button onclick="dispararChuvaDePatinhas(); alert('Compra simulada com sucesso!');" class="btn">Finalizar Pedido</button>
+
+                <!-- onclick="handleCheckout()": quando o botão é clicado, o navegador executa a função
+                     JavaScript chamada handleCheckout(), definida no script.js.
+                     style="..." aqui é um CSS "inline" (aplicado direto na tag), usado só para ajustar
+                     esse botão específico, sem precisar criar uma classe nova no CSS. -->
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>Fluffify</h4>
+                <p>Especialistas em acolhimento e adoção responsável de filhotes para todo o país.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Navegação</h4>
+                <a href="index.html">Início</a>
+                <a href="caes.html">Cães</a>
+                <a href="gatos.html">Gatos</a>
+                <a href="contato.html">Contato</a>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <p><i class="fa-brands fa-instagram"></i> @fluffify</p>
+                <p><i class="fa-brands fa-whatsapp"></i> (11) 99999-9999</p>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Fluffify - Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js" defer></script>
+    <!-- Importa o arquivo JavaScript que dá "vida" à página: preenche a tabela do carrinho,
+         calcula subtotal/total, e roda a função handleCheckout() quando o botão é clicado.
+         defer = espera o HTML inteiro carregar antes de rodar o script, evitando erros de
+         "elemento não encontrado" quando o JS tenta acessar algo que ainda não existe na tela. -->
+    <script src="patinhas.js" defer></script>
+</body>
+</html>
